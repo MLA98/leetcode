@@ -47,16 +47,24 @@ class Solution(object):
 
 
 
-class Solution:
-    # @param a ListNode
-    # @return a ListNode
-    def swapPairs(self, head):
-        p1 = guard = ListNode(0)
-        guard.next = head
-        
-        try:
-            while True:
-                p0, p1, p2 = p1, p1.next, p1.next.next
-                p0.next, p1.next, p2.next = p2, p2.next, p1
-        except:
-            return guard.next
+class Solution(object):
+def swapPairs(self, head):
+    """
+    :type head: ListNode
+    :rtype: ListNode
+    """
+    if not head or not head.next:return head
+    p,q=head,head.next
+    r=q#r是新的头结点
+    while p and q:
+        k=p#
+        p.next=q.next
+        q.next=p
+        if p.next and p.next.next:
+            p=p.next
+            q=p.next
+            k.next=q
+        else:
+            break
+    return r
+
