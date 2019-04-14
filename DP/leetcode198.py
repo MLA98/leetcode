@@ -18,6 +18,7 @@ class Solution(object):
         return max(ans)
 
     
+    
     class Solution(object):
     def rob(self, nums):
         """
