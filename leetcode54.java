@@ -33,3 +33,5 @@ class Solution {
         return ans;
     }
 }
+
+// Kinda not interesting problem. This scenario could be solved by pointers!!!!
