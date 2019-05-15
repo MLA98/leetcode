@@ -40,3 +40,6 @@ class Solution {
         helper(root.right, level + 1, ans);
     }
 }
+
+// Don't use try catch since it would slow down the speed because the java's optimization won't work. The program would be 
+// Super slow!
