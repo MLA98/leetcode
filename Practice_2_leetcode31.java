@@ -1,39 +1,31 @@
 class Solution {
-    public void nextPermutation(int[] nums) {
-        if (nums.length == 0 && nums.length == 1){
-            return;
-        }
-        int change = -1;
+    public void nextPermutation(int[] nums){
+        int lower =  -1;
+        // Find the number which gets lower first
         for (int i = nums.length - 2; i >= 0; i --){
             if (nums[i] < nums[i + 1]){
-                change = i;
+                lower = i;
                 break;
             }
         }
         
-        if (change == -1){
+        if (lower == -1){
             reverse(nums, 0);
             return;
         }
         
-        int diff = 999999999;
-        int smallDiffIndex = 0;
-        for (int i = change + 1; i < nums.length; i ++){
-            if (nums[i] > nums[change]){
-                if (nums[i] - nums[change] < diff){
-                    diff = nums[i] - nums[change];
-                    smallDiffIndex = i;
-                }
+        // Find the closest larger number to the lower
+        int closetLarger = 0;
+        for (int i = lower + 1; i < nums.length; i ++){
+            closetLarger = i;
+            if (nums[i] <= nums[lower]){
+                closetLarger = i - 1;
+                break;
             }
         }
+        swap(nums, closetLarger, lower);
+        reverse(nums, lower + 1);
         
-        int temp = nums[change];
-        nums[change] = nums[smallDiffIndex];
-        nums[smallDiffIndex] = temp;
-        if (nums[change + 1] < nums[change + 2]){
-            return;
-        }
-        reverse(nums, change + 1);
     }
     private void reverse(int[] nums, int start) {
         int i = start, j = nums.length - 1;
@@ -43,14 +35,16 @@ class Solution {
             j--;
         }
     }
-    private void swap(int[] nums, int i, int j) {
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
-    }
+        
+        private void swap(int[] nums, int i, int j) {
+            int temp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = temp;
+        }
+    
 }
 
-// My buggy solution. Maybe I am too tired Q.
+// My correct solution. Maybe I am too tired Q.
 
 
 
