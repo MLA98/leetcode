@@ -30,36 +30,55 @@ class Solution {
 // is really slow.
 
 class Solution {
+    // N^3 bruteforce. Find one 0 and go through the cross and set 
+    // them to zero
+    // I feel like I can use a tag in every first row and first column
+    // Which could make it to n^2
     public void setZeroes(int[][] matrix) {
-        if (matrix.length == 0){
+        if (matrix.length == 0 || matrix[0].length == 0){
             return;
         }
-        Boolean firRowZero = false;
-        for (int i = 0; i < matrix[0].length; i ++){
-            if (matrix[0][i] == 0){
-                firRowZero = true;
+        int rowZero = 0;
+        int colZero = 0;
+        for (int i = 0; i < matrix.length; i ++){
+            if (matrix[i][0] == 0){
+                colZero = 1;
                 break;
             }
         }
+        for (int j = 0; j < matrix[0].length; j ++){
+            if (matrix[0][j] == 0){
+                rowZero = 1;
+                break;
+            }
+        }
+        
         for (int i = 1; i < matrix.length; i ++){
-            for (int j = 0; j < matrix[0].length; j ++){
+            for (int j = 1; j < matrix[0].length; j ++){
                 if (matrix[i][j] == 0){
                     matrix[0][j] = 0;
                     matrix[i][0] = 0;
                 }
             }
         }
+        
         for (int i = 1; i < matrix.length; i ++){
-            for (int j = matrix[0].length - 1; j >= 0; j --){
+            for (int j = 1; j < matrix[0].length; j ++){
                 if (matrix[0][j] == 0 || matrix[i][0] == 0){
                     matrix[i][j] = 0;
                 }
             }
         }
-        if (firRowZero){
-            Arrays.fill(matrix[0], 0);
+        if (rowZero == 1){
+            for (int j = 0; j < matrix[0].length; j ++){
+                matrix[0][j] = 0;
+            } 
         }
-        
+        if (colZero == 1){
+            for (int j = 0; j < matrix.length; j ++){
+                matrix[j][0] = 0;
+            } 
+        }
     }
 }
 
