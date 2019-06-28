@@ -31,3 +31,32 @@ public int lengthOfLastWord(String s) {
     int lastIndex = s.lastIndexOf(' ') + 1;
     return s.length() - lastIndex;        
 }
+
+// use split and array, not efficient.
+class Solution {
+    public int lengthOfLastWord(String s) {
+        s = s.trim();
+        String[] splited = s.split(" ");
+        if (splited.length == 0){
+            return 0;
+        }
+        
+        return splited[splited.length - 1].length();
+    }
+}
+
+// Find the first space from the end.
+// count the char from end to the first space.
+class Solution {
+    public int lengthOfLastWord(String s) {
+        s = s.trim();
+        int ans = 0;
+        for(int i = s.length() - 1; i >= 0; i --){
+            if (s.charAt(i) == ' '){
+                break;
+            }
+            ans ++;
+        }
+        return ans;
+    }
+}
