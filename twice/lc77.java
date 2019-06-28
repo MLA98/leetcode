@@ -15,6 +15,7 @@ class Solution {
         int k){
         if (k == 0){
             ans.add(new ArrayList<Integer>(track));
+            return;
         }
         
         for (int i = start; i <= n; i ++){
