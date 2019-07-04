@@ -52,3 +52,36 @@ class Solution {
 }
 
 // Be extremely careful about pointer null!!! Easy in concept (two poninters) but u have to make sure your program does not access some null values!
+
+// Connect the tail and the head;
+// Cut where you need
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+        if(head == null || head.next == null){
+            return head;
+        }
+        ListNode head2 = head;
+        ListNode prev = null;
+        int count = 0;
+        
+        while(head2 != null){
+            count ++;
+            prev = head2;
+            head2 = head2.next;
+        }
+        
+        k = k % count;
+        if(k == 0){
+            return head;
+        }
+        prev.next = head;
+        prev = null;
+        head2 = head;
+        for(int i = 0; i < count - k; i ++){
+            prev = head2;
+            head2 = head2.next;
+        }
+        prev.next = null;
+        return head2;
+    }
+}
