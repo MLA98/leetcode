@@ -10,7 +10,7 @@ class Solution {
         ans.add(new ArrayList<>(temp));
         for (int i = start; i < nums.length; i ++){
             temp.add(nums[i]);
-            bthelper(ans, temp, nums, i);
+            bthelper(ans, temp, nums, i + 1);
             temp.remove(temp.size() - 1);
         }
     }
