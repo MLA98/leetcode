@@ -1,0 +1,159 @@
+public class LRUCache {
+    private class Node{
+        int key, value;
+        Node prev, next;
+        Node(int k, int v){
+            this.key = k;
+            this.value = v;
+        }
+        Node(){
+            this(0, 0);
+        }
+    }
+    private int capacity, count;
+    private Map<Integer, Node> map;
+    private Node head, tail;
+    
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        this.count = 0;
+        map = new HashMap<>();
+        head = new Node();
+        tail = new Node();
+        head.next = tail;
+        tail.prev = head;
+    }
+    
+    public int get(int key) {
+        Node n = map.get(key);
+        if(null==n){
+            return -1;
+        }
+        update(n);
+        return n.value;
+    }
+    
+    public void set(int key, int value) {
+        Node n = map.get(key);
+        if(null==n){
+            n = new Node(key, value);
+            map.put(key, n);
+            add(n);
+            ++count;
+        }
+        else{
+            n.value = value;
+            update(n);
+        }
+        if(count>capacity){
+            Node toDel = tail.prev;
+            remove(toDel);
+            map.remove(toDel.key);
+            --count;
+        }
+    }
+    
+    private void update(Node node){
+        remove(node);
+        add(node);
+    }
+    private void add(Node node){
+        Node after = head.next;
+        head.next = node;
+        node.prev = head;
+        node.next = after;
+        after.prev = node;
+    }
+    
+    private void remove(Node node){
+        Node before = node.prev, after = node.next;
+        before.next = after;
+        after.prev = before;
+    }
+}
+
+
+// My copy
+class LRUCache {
+    private class Node{
+        int key, value;
+        Node next, prev;
+        public Node(int key, int value){
+            this.key = key;
+            this.value = value;
+        }
+        public Node(){
+            this(0, 0);
+        }
+    }
+
+    private Map<Integer, Node> map;
+    private int capacity, count;
+    private Node head, tail;
+        
+    public LRUCache(int capacity) {
+        map = new HashMap<>();
+        this.capacity = capacity;
+        this.count = 0;
+        head = new Node();
+        tail = new Node();
+        head.next = tail;
+        tail.prev = head;
+    }
+    
+    public int get(int key) {
+        Node got = map.get(key);
+        if(got == null){
+            return -1;
+        }
+        update(got);
+        return got.value;
+    }
+    
+    public void put(int key, int value) {
+        Node got = map.get(key);
+        if(got == null){
+            got = new Node(key, value);
+            map.put(key, got);
+            add(got);
+            count ++;
+        }
+        else{
+            got.value = value;
+            update(got);
+        }
+        if(count > capacity){
+            // Node toDel = tail.prev;
+            map.remove(tail.prev.key);
+            remove(tail.prev);
+            count --;
+        }
+    }
+    
+    private void update(Node node){
+        remove(node);
+        add(node);
+    }
+    
+    private void add(Node node){
+        Node after = head.next;
+        head.next = node;
+        after.prev = node;
+        node.next = after;
+        node.prev = head;
+    }
+    
+    private void remove(Node node){
+        Node after = node.next;
+        Node before = node.prev;
+        before.next = after;
+        after.prev = before;
+    }
+}
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
