@@ -1,24 +1,32 @@
+// sb force 
+// TIME: O(N * M)
+// SPACE: O(1)
 class Solution {
     public int strStr(String haystack, String needle) {
-
-        int index_i = 0;
-        if (needle.length() == 0){
+        
+        if(needle.length() == 0){
             return 0;
         }
-        for (int i = 0; i < haystack.length() - needle.length() + 1; i++){
-            index_i = i;
-            for (int j = 0; j < needle.length(); j++){
-                if (haystack.charAt(index_i) == needle.charAt(j)){
-                    index_i ++;
+        
+        if(haystack.length() < needle.length()){
+            return -1;
+        }
+        for(int i = 0; i < haystack.length() - needle.length() + 1; i ++){
+            if(haystack.charAt(i) == needle.charAt(0)){
+                boolean found = true;
+                for(int j = 1; j < needle.length(); j ++){
+                    if(needle.charAt(j) != haystack.charAt(j + i)){
+                        found = false;
+                        break;
+                    }
                 }
-                else{
-                    break;
-                }
-                if (index_i - i == needle.length()){
+                if(found){
                     return i;
                 }
             }
         }
+        
         return -1;
     }
 }
+
