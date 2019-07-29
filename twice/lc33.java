@@ -3,15 +3,15 @@ class Solution {
         int left = 0;
         int right = nums.length - 1;
         int mid = 0;
-        while (left <= right){
-            
+        
+        while(right >= left){
             mid = left + (right - left) / 2;
-            if (target == nums[mid]){
-                    return mid;
+            if(target == nums[mid]){
+                return mid;
             }
-            // Left part is sorted
-            if (nums[mid] >= nums[left]){
-                if (target < nums[mid] && target >= nums[left]){
+            
+            if(nums[mid] >= nums[left]){
+                if(target < nums[mid] && target >= nums[left]){
                     right = mid - 1;
                 }
                 else{
@@ -19,7 +19,8 @@ class Solution {
                 }
             }
             else{
-                if (target > nums[mid] && target <= nums[right]){
+                // right part is already sorted.
+                if(target > nums[mid] && target <= nums[right]){
                     left = mid + 1;
                 }
                 else{
@@ -27,9 +28,9 @@ class Solution {
                 }
             }
         }
+        
         return -1;
     }
 }
-
 // The core is to find the place that is sorted and may include the target;
 // Be careful about the corner case like the left == mid or [3, 1] or [1]
