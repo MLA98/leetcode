@@ -7,18 +7,19 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+
+ // Don't be cocky dude, sometimes the easy one could fuck you up.
 class Solution {
+    
     public boolean hasPathSum(TreeNode root, int sum) {
-        if (root == null){
+        if(root == null){
             return false;
         }
-        if (root.val == sum && root.left == null && root.right == null){
+        
+        if(root.val == sum && root.right == null && root.left == null){
             return true;
         }
         
         return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
     }
 }
-
-
-// Sleepy, choose this easy one..

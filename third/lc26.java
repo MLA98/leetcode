@@ -22,5 +22,3 @@ class Solution {
         nums[b] = temp;
     }
 }
-
-// Damn not bug free as well. one line missed. Should have checked it thoroughly.
