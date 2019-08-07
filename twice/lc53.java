@@ -9,6 +9,3 @@ class Solution {
         return maxSoFar;
     }
 }
-
-
-// What to do with this kind of corner case?
