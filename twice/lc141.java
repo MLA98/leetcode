@@ -11,20 +11,21 @@
  */
 public class Solution {
     public boolean hasCycle(ListNode head) {
-        if (head == null){
+        if(head == null){
             return false;
-        }        
-        Set<ListNode> contains = new HashSet<>();
-        ListNode traverseNode = head;
-        while (traverseNode != null){
-            if (contains.contains(traverseNode)){
+        }
+        
+        Set<ListNode> set = new HashSet<>();
+        
+        while(head != null){
+            System.out.println(head);
+            if(set.contains(head)){
                 return true;
             }
-            else{
-                contains.add(traverseNode);
-            }
-            traverseNode = traverseNode.next;
+            set.add(head);
+            head = head.next;
         }
+        
         return false;
     }
 }
@@ -32,18 +33,19 @@ public class Solution {
 // No extra space.
 public class Solution {
     public boolean hasCycle(ListNode head) {
-        if (head == null){
+        if(head == null){
             return false;
-        }        
-        ListNode slow = head;
-        ListNode fast = head;
-        while(fast != null && fast.next != null){
+        }
+        ListNode slow, fast;
+        slow = fast = head;
+        while(fast.next != null && fast.next.next != null){
             fast = fast.next.next;
             slow = slow.next;
-            if (fast == slow){
+            if(fast == slow){
                 return true;
             }
         }
+        
         return false;
     }
 }
