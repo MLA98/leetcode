@@ -1,38 +1,3 @@
-// O(n) O(n) solution with hashmap
-class Solution {
-    public Node copyRandomList(Node head) {
-        if(head == null){
-            return null;
-        }
-        
-        Node newHead = new Node(0, null, null);
-        Node newTraverse = newHead;
-        Map<Node, Node> map = new HashMap<>();
-        Node traverse = head;
-        
-        while(traverse != null){
-            newTraverse.next = new Node(traverse.val, traverse.next, null);
-            map.put(traverse, newTraverse.next);
-            newTraverse = newTraverse.next;
-            traverse = traverse.next;
-        }
-        
-        traverse = head;
-        newTraverse = newHead.next;
-        
-        while(traverse != null){
-            if(traverse.random != null){
-                newTraverse.random = map.get(traverse.random);
-            }
-            traverse = traverse.next;
-            newTraverse = newTraverse.next;
-        }
-        
-        return  newHead.next;
-    }
-}
-
-// O(n) O(1) solution
 /*
 // Definition for a Node.
 class Node {
@@ -49,38 +14,37 @@ class Node {
     }
 };
 */
+
+// Two-pass solution with hashmap. O(N) O(N)
 class Solution {
     public Node copyRandomList(Node head) {
-        if(head == null){
+        if (head == null){
             return null;
         }
-        Node iter = head;
-        while(iter != null){
-            Node copy = new Node(iter.val, iter.next, null);
-            iter.next = copy;
-            iter = copy.next;
+        // map the cloned node and the old node.
+        Map<Node, Node> map =  new HashMap<>();
+        Node traverseNode = head;
+        // copy the label first.
+        while (traverseNode != null){
+            Node cloned = new Node();
+            cloned.val = traverseNode.val;
+            map.put(traverseNode, cloned);
+            traverseNode = traverseNode.next;
         }
-        
-        iter = head;
-        while(iter != null){
-            if(iter.random != null){
-                iter.next.random = iter.random.next;
+        // copy the next and random
+        traverseNode = head;
+        while (traverseNode != null){
+            if (traverseNode.next != null){
+                map.get(traverseNode).next = map.get(traverseNode.next); 
             }
-            iter = iter.next.next;
+            if (traverseNode.random != null){
+                map.get(traverseNode).random = map.get(traverseNode.random);
+            }
+            traverseNode = traverseNode.next;
         }
         
-        Node orig = head;
-        iter = head.next;
-        Node ret = iter;
-        while(iter != null && iter.next != null){
-            orig.next = orig.next.next;
-            iter.next = iter.next.next;
-            orig = orig.next;
-            iter = iter.next;
-        }
-        
-        orig.next = null;
-            
-        return ret;
+        return map.get(head);
     }
 }
+
+// There is a fancy way to do it. Zig-zag way, Don't want to do that right now.
