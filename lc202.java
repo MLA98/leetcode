@@ -1,22 +1,22 @@
 class Solution {
     public boolean isHappy(int n) {
-        Set<Integer> set = new HashSet<Integer>();
+        // The happy calculation will eventually go to a loop
+        Set<Integer> duplication = new HashSet<>();
+        duplication.add(n);
         
         while(n > 1){
             int m = 0;
-            
             while(n > 0){
-                int d = n % 10;
-                m += d * d;
+                m += (n % 10) * (n % 10);
                 n /= 10;
             }
             
-            if(set.contains(m))
+            if(duplication.contains(m)){
                 return false;
-            
-            
-            set.add(m);
-            
+            }
+            else{
+                duplication.add(m);
+            }
             n = m;
         }
         
