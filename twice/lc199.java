@@ -33,3 +33,34 @@ class Solution {
         recHelper(ans, root.left, level + 1);
     }
 }
+
+// Astonishing that I thought it was super easy
+// Fast actually but used a lot of space.
+class Solution {
+    // sb force anyways
+    List<List<Integer>> levelOrder;
+    public List<Integer> rightSideView(TreeNode root) {
+        levelOrder = new ArrayList<>();
+        levelOrderTrav(root, 0);
+        List<Integer> ans = new LinkedList<>();
+        for(List<Integer> level: levelOrder){
+            ans.add(level.get(0));
+        }
+        return ans;
+    }
+    
+    private void levelOrderTrav(TreeNode node, int level){
+        if(node == null){
+            return;
+        }
+        
+        if(level >= levelOrder.size()){
+            levelOrder.add(new ArrayList<>());
+        }
+        
+        levelOrder.get(level).add(node.val);
+        
+        levelOrderTrav(node.right, level + 1);
+        levelOrderTrav(node.left, level + 1);
+    }
+}
