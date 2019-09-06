@@ -28,3 +28,15 @@ class Solution {
 }
 
 // 高手写法
+class Solution {
+    public boolean isPowerOfTwo(int n) {
+        if(n == 0){
+            return false;
+        }
+        
+        long x = (long)n;
+        // detect the rightmost 1
+        return (x & -x) == x;
+    }
+}
+
