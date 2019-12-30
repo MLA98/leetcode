@@ -1,22 +1,23 @@
 class Solution {
     public String addStrings(String num1, String num2) {
-        int p1 = num1.length() - 1;
-        int p2 = num2.length() - 1;
-        int carry = 0;
+        int index1 = num1.length() - 1;
+        int index2 = num2.length() - 1;
         StringBuilder sb = new StringBuilder();
+        int carry = 0;
         
-        while(p1 >= 0 || p2 >= 0){
-            int d1 = p1 >= 0? num1.charAt(p1) - '0': 0;
-            int d2 = p2 >= 0? num2.charAt(p2) - '0': 0;
-            int sum = (d1 + d2 + carry) % 10;
-            carry = (d1 + d2 + carry) / 10;
+        while(index1 >= 0 || index2 >= 0){
+            int n1 = index1 >= 0 ? num1.charAt(index1) - '0' : 0;
+            int n2 = index2 >= 0 ? num2.charAt(index2) - '0' : 0;
+            int sum = n1 + n2 + carry;
+            carry = sum / 10;
+            sum %= 10;
             sb.append(sum);
-            p1 --;
-            p2 --;
+            index1 --;
+            index2 --;
         }
         
         if(carry == 1){
-            sb.append(carry);
+            sb.append(1);
         }
         
         return sb.reverse().toString();
