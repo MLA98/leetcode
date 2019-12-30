@@ -8,33 +8,40 @@
  * }
  */
 class Solution {
-    private int count = 0;
-    public int countUnivalSubtrees(TreeNode root) {
-        dfs(root);
-        return count;
-    }
+    int count;
     
-    private boolean dfs(TreeNode node){
-        // base case: leaf
-        if(node == null){
-            return true;
-        }
-        
-        int rightVal = node.right == null? node.val: 
-                                            node.right.val;
-        int leftVal = node.left == null? node.val: 
-                                            node.left.val;
-        
-        boolean leftUni = dfs(node.left);
-        boolean rightUni = dfs(node.right);
-        
-        
-        if (leftUni && rightUni && 
-            leftVal == rightVal && leftVal == node.val){
+    private boolean isUni(TreeNode root){
+        // bottom case
+        if(root.left == null && root.right == null){
             count ++;
             return true;
         }
-            
+        
+        boolean left = true;
+        boolean right = true;
+        if(root.left != null){
+            left = isUni(root.left) && root.val == root.left.val;
+        }
+        
+        if(root.right != null){
+            right = isUni(root.right) && root.val == root.right.val;
+        }
+        
+        if(right && left){
+            count ++;
+            return true;
+        }
+        
         return false;
     }
+    
+    public int countUnivalSubtrees(TreeNode root) {
+        if(root == null){
+            return 0;
+        }
+        count = 0;  
+        isUni(root);
+        return count;
+    }
+    
 }
